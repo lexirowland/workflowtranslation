@@ -1,0 +1,35 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix xml: <http://www.w3.org/XML/1998/namespace>.
+@prefix wf: <http://geographicknowledge.de/vocab/Workflow.rdf#>.
+@prefix tools: <http://geographicknowledge.de/vocab/GISTools.rdf#>.
+@prefix arcpro: <https://pro.arcgis.com/en/pro-app/tool-reference/>.
+@prefix pdok: <https://www.pdok.nl/introductie/-/article/>.
+
+# @author: Lexi Rowland
+
+# Workflow: noise pollution in amsterdam.
+# Workflow metadata (result and data sources)
+_:wf3 a wf:Workflow;
+	rdfs:comment "Which PC4 areas of Amsterdam have noise pollution greater than 70 dB?"@en;	
+	wf:source <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas	
+	wf:source <https://maps.amsterdam.nl/geluid>; #noise map contour, ordinalA 
+	wf:edge _:wf4_1, _:wf4_2, _:wf4_3, _:wf4_4.
+	
+_:wf4_1 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/gdal/vectorconversion.html#rasterize-vector-to-raster>;
+		wf:input1 <https://maps.amsterdam.nl/geluid>; #contour, ordinalA
+		wf:output _:noise_raster. #fieldraster, ordinalA
+		
+_:wf4_2 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#clip>;
+		wf:input1 _:noise_raster;
+		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>;
+		wf:output _:noise_amsterdam. #fieldraster, ordinalA
+		
+_:wf4_3 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>;
+		wf:input1 _:noise_amsterdam;
+		wf:output _:noisy_amsterdam. 
+
+_:wf4_4 wf:applicationOf <https://grass.osgeo.org/grass78/manuals/r.to.vect.html>;
+		wf:input1 _:noisy_amsterdam;
+		wf:output _:noisy_amsterdam_shp. #lattice, vectorA, ordinalA

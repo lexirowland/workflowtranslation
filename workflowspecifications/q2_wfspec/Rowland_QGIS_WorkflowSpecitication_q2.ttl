@@ -1,0 +1,40 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix xml: <http://www.w3.org/XML/1998/namespace>.
+@prefix wf: <http://geographicknowledge.de/vocab/Workflow.rdf#>.
+@prefix tools: <http://geographicknowledge.de/vocab/GISTools.rdf#>.
+@prefix arcpro: <https://pro.arcgis.com/en/pro-app/tool-reference/>.
+@prefix pdok: <https://www.pdok.nl/introductie/-/article/>.
+
+# @author: Lexi Rowland
+
+# Workflow: proportion of elderly people living in each PC4 area in Amsterdam.
+# Workflow metadata (result and data sources)
+_:wf3 a wf:Workflow;
+	rdfs:comment "What is the proportion of elderly people living in each PC4 area in Amsterdam?"@en;	
+	wf:source <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas	
+	wf:source <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #cbs buurt statistics with percentages of elderly people by neighbourhood
+	wf:edge _:wf2_1, _:wf2_2, _:wf2_3, _:wf2_4, _:wf2_5.
+	
+_:wf2_1 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#union>;
+		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas (Lattice, VectorA)
+		wf:input2 <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #percent elderly (Lattice, Vector, Ratio, Extensive)
+		wf:output _:clipped. #lattice, vectorA
+		
+_:wf2_2 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#add-geometry-attributes>;
+		wf:input1 _:clipped;
+		wf:output _:clipped_1. #lattice, vector, ratioA
+
+_:wf2_3 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table>;
+		wf:input1 _:clipped_1;
+		wf:output _:clipped_shp. #lattice, vector, ratioA
+		
+_:wf2_4 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#dissolve>; #using qtools:DissolveSumRatio
+		wf:input1 _:clipped_shp2;
+		wf:output _:diss. #lattice, vector, ratioA
+		
+_:wf2_5 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table>;
+		wf:input1 _:diss;
+		wf:output _:diss2. #lattice, vector, ratioA
+

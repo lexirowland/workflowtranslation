@@ -1,0 +1,74 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix xml: <http://www.w3.org/XML/1998/namespace>.
+@prefix wf: <http://geographicknowledge.de/vocab/Workflow.rdf#>.
+@prefix tools: <http://geographicknowledge.de/vocab/GISTools.rdf#>.
+@prefix arcpro: <https://pro.arcgis.com/en/pro-app/tool-reference/>.
+@prefix pdok: <https://www.pdok.nl/introductie/-/article/>.
+
+# @author: Lexi Rowland
+
+# Workflow: .
+# Workflow metadata (result and data sources)
+_:wf3 a wf:Workflow;
+	rdfs:comment "What is the number of medical facilities (pharmacies, clinics, hospitals etc.) in each PC4 area?"@en;	
+	wf:source _:buildg; #fieldraster, nominalA
+	wf:source _:iswater; #existenceraster, booleanA
+	wf:source _:isroad; #existenceraster, booleanA
+	wf:source _:slope; #fieldraster, ratioA  	
+	wf:edge _:wf6_1, _:wf6_2, _:wf6_3, _:wf6_4, _:wf6_5, _:wf6_6, _:wf6_7, _:wf6_8, _:wf6_9, _:wf6_10, _:wf6_11, _:wf6_12.
+	
+_:wf6_1 wf:applicationOf <https://grass.osgeo.org/grass78/manuals/r.reclass.html>;
+		wf:input1 _:buildg;
+		wf:input2 _:reclasslayer;
+		wf:output _:industry. #field raster, nominalA
+		
+_:wf6_2 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/gdal/rasteranalysis.html#proximity-raster-distance>;
+		wf:input1 _:industry;
+		wf:output _:inddist. #fieldraster, ratioA
+		
+_:wf6_3 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>;
+		wf:input1 _:buildg;
+		wf:output _:nobuild. #existence raster, booleanA
+
+_:wf6_4 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>;
+		wf:input1 _:iswater;
+		wf:output _:nowater. #existenceraster, booleanA
+
+_:wf6_5 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>;
+		wf:input1 _:isroad;
+		wf:output _:noroad. #existenceraster, booleanA
+		
+_:wf6_6 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>;
+		wf:input1 _:slope;
+		wf:output _:nosteep. #existenceraster, booleanA
+		
+_:wf6_7 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>;
+		wf:input1 _:inddist;
+		wf:output _:noind. #existenceraster, booleanA
+		
+_:wf6_8 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>;
+		wf:input1 _:noind;
+		wf:input2 _:nobuild;
+		wf:input3 _:nowater;
+		wf:input4 _:noroad;
+		wf:input5 _:nosteep;
+		wf:output _:sportgo. #existence raster, booleanA
+		
+_:wf6_9 wf:applicationOf <https://grass.osgeo.org/grass78/manuals/r.clump.html>;
+		wf:input1 _:sportgo;
+		wf:output _:sportclu. #fieldraster, nominalA
+		
+_:wf6_10 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>;
+		wf:input1 _:sportclu;
+		wf:output _:sportclub_nd. #fieldraster, nominalA
+		
+_:wf6_11 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/rasteranalysis.html#raster-layer-zonal-statistics>;
+		wf:input1 _:sportclu_nd;
+		wf:output _:sportarea. #fieldraster, ratioA
+		
+_:wf6_12 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>;
+		wf:input1 _:sportarea;
+		wf:output _:sports. #existenceraster, booleanA 
+		
