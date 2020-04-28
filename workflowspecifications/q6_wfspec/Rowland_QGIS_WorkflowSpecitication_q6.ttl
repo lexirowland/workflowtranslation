@@ -11,7 +11,7 @@
 
 # Workflow: .
 # Workflow metadata (result and data sources)
-_:wf3 a wf:Workflow;
+_:wf6 a wf:Workflow;
 	rdfs:comment "What is the number of medical facilities (pharmacies, clinics, hospitals etc.) in each PC4 area?"@en;	
 	wf:source _:buildg; #fieldraster, nominalA
 	wf:source _:iswater; #existenceraster, booleanA
@@ -54,7 +54,7 @@ _:wf6_8 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working
 		wf:input3 _:nowater;
 		wf:input4 _:noroad;
 		wf:input5 _:nosteep;
-		wf:output _:sportgo. #existence raster, booleanA
+		wf:output _:sportgo. #fieldraster, nominalA
 		
 _:wf6_9 wf:applicationOf <https://grass.osgeo.org/grass78/manuals/r.clump.html>;
 		wf:input1 _:sportgo;

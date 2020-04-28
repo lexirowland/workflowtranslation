@@ -11,7 +11,7 @@
 
 # Workflow: .
 # Workflow metadata (result and data sources)
-_:wf3 a wf:Workflow;
+_:wf6 a wf:Workflow;
 	rdfs:comment "What is the number of medical facilities (pharmacies, clinics, hospitals etc.) in each PC4 area?"@en;	
 	wf:source _:buildg; #fieldraster, nominalA
 	wf:source _:iswater; #existenceraster, booleanA
@@ -21,7 +21,7 @@ _:wf3 a wf:Workflow;
 	
 _:wf6_1 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/spatial-analyst-toolbox/reclassify.htm>;
 		wf:input1 _:buildg;
-		wf:output _:industry. #field raster, nominalA
+		wf:output _:industry. #existence raster, booleanA
 		
 _:wf6_2 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/spatial-analyst-toolbox/euclidean-distance.htm>;
 		wf:input1 _:industry;
@@ -53,7 +53,7 @@ _:wf6_8 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/spatia
 		wf:input3 _:nowater;
 		wf:input4 _:noroad;
 		wf:input5 _:nosteep;
-		wf:output _:sportgo. #existence raster, booleanA
+		wf:output _:sportgo. #fieldraster, nominalA
 		
 _:wf6_9 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/spatial-analyst-toolbox/region-group.htm>;
 		wf:input1 _:sportgo;
@@ -61,6 +61,7 @@ _:wf6_9 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/spatia
 		
 _:wf6_10 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/spatial-analyst-toolbox/set-null.htm>;
 		wf:input1 _:sportclu;
+		wf:input2 _:constantrasterfield;
 		wf:output _:sportclub_nd. #fieldraster, nominalA
 		
 _:wf6_11 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/spatial-analyst-toolbox/zonal-geometry.htm>;

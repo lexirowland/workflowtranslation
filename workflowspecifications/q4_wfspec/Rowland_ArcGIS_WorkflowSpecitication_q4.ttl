@@ -11,25 +11,26 @@
 
 # Workflow: noise pollution in amsterdam.
 # Workflow metadata (result and data sources)
-_:wf3 a wf:Workflow;
-	rdfs:comment "Which PC4 areas of Amsterdam have noise pollution greater than 70 dB?"@en;	
+_:wf4 a wf:Workflow;
+	rdfs:comment "Where in Amsterdam is noise pollution equal to or greater than 70dB?"@en;	
 	wf:source <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas	
-	wf:source <https://maps.amsterdam.nl/geluid>; #noise map contour, ordinalA 
-	wf:edge _:wf4_1, _:wf4_2, _:wf4_3, _:wf4_4.
+	wf:source <https://maps.amsterdam.nl/geluid>;	#Amsterdam noise map
+	wf:edge _:wf3_1, _:wf3_2, _:wf3_3,_:wf3_4, _:wf3_5, _:wf3_6.
 	
-_:wf4_1 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/conversion-toolbox/polygon-to-raster.htm>;
-		wf:input1 <https://maps.amsterdam.nl/geluid>; #noise map 
+_:wf4_1 wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/conversion/polygon-to-raster.htm>;
+		wf:input1 <https://maps.amsterdam.nl/geluid>; #contour ordinalA	
 		wf:output _:noise_raster. #fieldraster, ordinalA
 		
-_:wf4_2 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/clip.htm>;
-		wf:input1 _:noise_raster;
-		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>;
-		wf:output _:noise_amsterdam. #fieldraster, ordinalA
+_:wf4_4  wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/data-management/clip.htm>;
+		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vector, nominalA
+		wf:input2 _:noise_raster; #fieldraster, ordinalA		
+		wf:output _:noise_amsterdam.
 		
-_:wf4_3 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/raster-calculator.htm>;
-		wf:input1 _:noise_amsterdam;
+_:wf4_5  wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm>; 
+		wf:input1 _:noise_amsterdam;				
 		wf:output _:noisy_amsterdam.
-
-_:wf4_4 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/conversion-toolbox/raster-to-polygon.htm>;
-		wf:input1 _:noisy_amsterdam;
-		wf:output _:noisy_amsterdam_shp. #lattice, vectorA, ordinalA
+		
+_:wf4_6  wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/conversion/raster-to-polygon.htm>;
+		wf:input1 _:noisy_amsterdam;				
+		wf:output _:noisy_amsterdam_shp. #lattice, vectorA, nominalA	
+		
