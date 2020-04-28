@@ -20,15 +20,15 @@ _:wf3 a wf:Workflow;
 _:wf5_1 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#clip>;
 		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #noise map 
 		wf:input2 _:urbanheatislandtif; 
-		wf:output _:UHIams_tif. #fieldraster
+		wf:output _:UHIams_tif. #fieldraster, intervalA
 
-_:wf5_2 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/rasteranalysis.html#zonal-statistics>;
+_:wf5_2 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/rasteranalysis.html#zonal-statistics>; 
 		wf:input1 _:UHIams_tif;
 		wf:output _:UHIzonalstatistics_shp.
 		
 _:wf5_3 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorgeneral.html#join-attributes-by-field>;
 		wf:input1 _:UHIzonalstatistics_shp;
 		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>;
-		wf:output _:meanUHIPC4_shp.
+		wf:output _:meanUHIPC4_shp. #lattice, vector, intervalA
 		
 

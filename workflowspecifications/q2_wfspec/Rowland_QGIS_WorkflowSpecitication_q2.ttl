@@ -18,11 +18,11 @@ _:wf3 a wf:Workflow;
 	wf:edge _:wf2_1, _:wf2_2, _:wf2_3, _:wf2_4, _:wf2_5.
 	
 _:wf2_1 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#union>;
-		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas (Lattice, VectorA)
-		wf:input2 <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #percent elderly (Lattice, Vector, Ratio, Extensive)
-		wf:output _:clipped. #lattice, vectorA
+		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vector, nominalA
+		wf:input2 <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #lattice, vector, nominalA #focused on boundaries
+		wf:output _:clipped. #lattice, vectorA, nominalA
 		
-_:wf2_2 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#add-geometry-attributes>;
+_:wf2_2 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#add-geometry-attributes>; #adding area
 		wf:input1 _:clipped;
 		wf:output _:clipped_1. #lattice, vector, ratioA
 

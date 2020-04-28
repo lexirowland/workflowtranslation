@@ -18,6 +18,6 @@ _:wf3 a wf:Workflow;
 	wf:edge _:wf1_1.
 	
 _:wf1_1 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/analysis-toolbox/spatial-join.htm>; #using SpatialJoinCountTess
-		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas (Lattice, VectorA)
-		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=49>; #medical facilities objectpoint nominalA
+		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vectorA, nominalA 
+		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=49>; #objectpoint, nominalA
 		wf:output _:spatialjoin_1. #lattice, VectorA, countA

@@ -18,13 +18,13 @@ _:wf3 a wf:Workflow;
 	wf:edge _:wf2_1, _:wf2_2, _:wf2_3, _:wf2_4, _:wf2_5, _:wf2_6, _:wf2_7.
 	
 _:wf2_1 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/analysis-toolbox/identity.htm>;
-		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas lattice, vectorA, nominalA
-		wf:input2 <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #percent elderly (Lattice, Vector, Ratio, Extensive)
-		wf:output _:clipped. #lattice, vectorA
+		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vectorA, nominalA
+		wf:input2 <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #lattice, vectorA, nominalA
+		wf:output _:clipped. #lattice, vectorA, nominalA
 		
-_:wf2_2 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-geometry-attributes.htm>;
+_:wf2_2 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-geometry-attributes.htm>; #adding area
 		wf:input1 _:clipped;
-		wf:output _:clipped_1. #lattice, vector, ratioA
+		wf:output _:clipped_1. #lattice, vector, ratioA 
 
 _:wf2_3 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/data-management-toolbox/add-field.htm>;
 		wf:input1 _:clipped_1;
