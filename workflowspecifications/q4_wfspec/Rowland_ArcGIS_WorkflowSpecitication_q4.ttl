@@ -24,11 +24,11 @@ _:wf4_1 wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/conve
 _:wf4_4  wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/data-management/clip.htm>;
 		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vector, nominalA
 		wf:input2 _:noise_raster; #fieldraster, ordinalA		
-		wf:output _:noise_amsterdam.
+		wf:output _:noise_amsterdam. #fieldraster, ordinalA
 		
 _:wf4_5  wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm>; 
-		wf:input1 _:noise_amsterdam;				
-		wf:output _:noisy_amsterdam.
+		wf:input1 _:noise_amsterdam; #fieldraster, ordinalA			
+		wf:output _:noisy_amsterdam. #existenceraster, booleanA
 		
 _:wf4_6  wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/conversion/raster-to-polygon.htm>;
 		wf:input1 _:noisy_amsterdam;				

@@ -53,7 +53,7 @@ _:wf6_8 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/spatia
 		wf:input3 _:nowater;
 		wf:input4 _:noroad;
 		wf:input5 _:nosteep;
-		wf:output _:sportgo. #fieldraster, nominalA
+		wf:output _:sportgo. #existenceraster, booleanA
 		
 _:wf6_9 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/spatial-analyst-toolbox/region-group.htm>;
 		wf:input1 _:sportgo;
