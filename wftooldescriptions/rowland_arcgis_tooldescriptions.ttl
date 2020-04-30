@@ -96,7 +96,7 @@ tools:AddFieldRaster rdfs:label "Adds a field to the attribute table of an Field
 	wf:output [ a ccd:FieldRaster ]. 
 
 ########### Supertool: Zonal Statistics and Join Tool
-tools:JoinToZonalStatisticsTable tools:implements tools:ZonalStatisticsJoin;  
+tools:JoinToZonalStatisticsTable tools:implements tools:ZonalStatisticsMajorityBooleanJoin, tools:ZonalStatisticsMajorityNominalJoin, tools:ZonalStatisticsMedianOrdinalJoin, tools:ZonalStatisticsMeanIntervalJoin, tools:ZonalStatisticsMeanIntervalIRAJoin, tools:ZonalStatisticsMeanRatioJoin, tools:ZonalStatisticsSumRatioJoin, tools:ZonalStatisticsMeanRatioIRAJoin, tools:ZonalStatisticsMeanCountJoin, tools:ZonalStatisticsSumCountJoin;  
 	wf:edge _:wf2_1, _:wf2_2;
 		wf:source _:in21, _:in22;
 	rdfs:label "Performs a zonal statistics related calculation and joins the output table to the original input dataset.".
@@ -109,156 +109,215 @@ _:wf2_2 wf:ApplicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/data
 	wf:input2 _:in21;
 	wf:output _:out22.
 	
-tools:ZonalStatisticsJoin rdfs:label "Joins the zonal statistics output to a table using a common attribute from both attribute tables.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
-	wf:output [ a ccd:Lattice, ccd:VectorA ]. 
+tools:ZonalStatisticsMajorityBooleanJoin rdfs:label "Calculates the most common value on the values with a boolean measurement level of a raster within the zones of another dataset and then joins the output table to the original vector dataset";
+	wf:input1 [ a ccd:FieldRaster, ccd:BooleanA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+tools:ZonalStatisticsMajorityNominalJoin rdfs:label "Calculates the most common value on the values with a boolean measurement level of a raster within the zones of another dataset and then joins the output table to the original vector dataset";
+	wf:input1 [ a ccd:FieldRaster, ccd:NominalA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+tools:ZonalStatisticsMedianOrdinalJoin rdfs:label "Calculates the most common value on the values with a boolean measurement level of a raster within the zones of another dataset and then joins the output table to the original vector dataset";
+	wf:input1 [ a ccd:FieldRaster, ccd:OrdinalA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+tools:ZonalStatisticsMeanIntervalJoin rdfs:label "Calculates the most common value on the values with a boolean measurement level of a raster within the zones of another dataset and then joins the output table to the original vector dataset";
+	wf:input1 [ a ccd:FieldRaster, ccd:IntervalA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+tools:ZonalStatisticsMeanIntervalIRAJoin rdfs:label "Calculates the most common value on the values with a boolean measurement level of a raster within the zones of another dataset and then joins the output table to the original vector dataset";
+	wf:input1 [ a ccd:FieldRaster, ccd:IntervalA, exm:IRA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+tools:ZonalStatisticsMeanRatioJoin rdfs:label "Calculates the most common value on the values with a boolean measurement level of a raster within the zones of another dataset and then joins the output table to the original vector dataset";
+	wf:input1 [ a ccd:FieldRaster, ccd:RatioA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+tools:ZonalStatisticsMeanRatioIRAJoin rdfs:label "Calculates the most common value on the values with a boolean measurement level of a raster within the zones of another dataset and then joins the output table to the original vector dataset";
+	wf:input1 [ a ccd:FieldRaster, ccd:RatioA, exm:IRA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+tools:ZonalStatisticsSumRatioJoin rdfs:label "Calculates the most common value on the values with a boolean measurement level of a raster within the zones of another dataset and then joins the output table to the original vector dataset";
+	wf:input1 [ a ccd:FieldRaster, ccd:RatioA, exm:ERA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+tools:ZonalStatisticsMeanCountJoin rdfs:label "Calculates the most common value on the values with a boolean measurement level of a raster within the zones of another dataset and then joins the output table to the original vector dataset";
+	wf:input1 [ a ccd:FieldRaster, ccd:CountA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+tools:ZonalStatisticsSumCountJoin rdfs:label "Calculates the most common value on the values with a boolean measurement level of a raster within the zones of another dataset and then joins the output table to the original vector dataset";
+	wf:input1 [ a ccd:FieldRaster, ccd:CountA, exm:ERA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
 
 ########### Zonal Statistics 
 #### Zonal Statistics with Majority Rule
 # with Boolean Data
 <https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/zonal-statistics-as-table.htm> tools:implements tools:ZonalStatisticsMajorityBoolean.
 tools:ZonalStatisticsMajorityBoolean  rdfs:label "Calculates the most common value on values with a Boolean measurement level of a raster within the zones of another dataset, a zone is defined as all areas in the input that have the same value. The areas do not have to be contiguous. Both raster and feature datasets can be used for the zone input.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:BooleanA ];
+	wf:input1 [ a ccd:FieldRaster, ccd:BooleanA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
 	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:BooleanA ].
 
 # with Nominal Data
 <https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/zonal-statistics-as-table.htm> tools:implements tools:ZonalStatisticsMajorityNominal.
 tools:ZonalStatisticsMajorityNominal  rdfs:label "Calculates the most common value on values with a Nominal measurement level of a raster within the zones of another dataset, a zone is defined as all areas in the input that have the same value. The areas do not have to be contiguous. Both raster and feature datasets can be used for the zone input.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:NominalA ];
+	wf:input1 [ a ccd:FieldRaster, ccd:NominalA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
 	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:NominalA ].
     
 #### Zonal Statistics with Median Rule
 # for Ordinal Data
 <https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/zonal-statistics-as-table.htm> tools:implements tools:ZonalStatisticsMedOrdinal.
 tools:ZonalStatisticsMedOrdinal  rdfs:label "Calculates the median on values with an Ordinal measurement level of a raster within the zones of another dataset, a zone is defined as all areas in the input that have the same value. The areas do not have to be contiguous. Both raster and feature datasets can be used for the zone input.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:OrdinalA ];
+	wf:input1 [ a ccd:FieldRaster, ccd:OrdinalA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
 	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:OrdinalA ].
 
 #### Zonal Statistics with Mean Rule 
 #for Interval Data
 <https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/zonal-statistics-as-table.htm> tools:implements tools:ZonalStatisticsMeanInterval.
 tools:ZonalStatisticsMeanInterval  rdfs:label "Calculates the average value for values with a Interval measurement level of a raster within the zones of another dataset, a zone is defined as all areas in the input that have the same value. The areas do not have to be contiguous. Both raster and feature datasets can be used for the zone input.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:IntervalA ];
+	wf:input1 [ a ccd:FieldRaster, ccd:IntervalA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
 	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ].
 
 <https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/zonal-statistics-as-table.htm> tools:implements tools:ZonalStatisticsMeanIntervalIRA.
 tools:ZonalStatisticsMeanIntervalIRA  rdfs:label "Calculates the average value for values with a Interval measurement level of a raster within the zones of another dataset, a zone is defined as all areas in the input that have the same value. The areas do not have to be contiguous. Both raster and feature datasets can be used for the zone input.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:IntervalA, exm:IRA ]; #IRA This was added because of the APE leaf problem. !!!
+	wf:input1 [ a ccd:FieldRaster, ccd:IntervalA, exm:IRA];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ]; #IRA This was added because of the APE leaf problem. !!!
 	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ].
 	
 #for Ratio Data
 <https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/zonal-statistics-as-table.htm> tools:implements tools:ZonalStatisticsMeanRatio.
 tools:ZonalStatisticsMeanRatio  rdfs:label "Calculates the average value for values with a Ratio measurement level of a raster within the zones of another dataset, a zone is defined as all areas in the input that have the same value. The areas do not have to be contiguous. Both raster and feature datasets can be used for the zone input.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:RatioA ];
+	wf:input1 [ a ccd:FieldRaster, ccd:RatioA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
 	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:RatioA ].
     
 <https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/zonal-statistics-as-table.htm> tools:implements tools:ZonalStatisticsMeanRatioIRA.
 tools:ZonalStatisticsMeanRatioIRA  rdfs:label "Calculates the average value for values with a Ratio measurement level of a raster within the zones of another dataset, a zone is defined as all areas in the input that have the same value. The areas do not have to be contiguous. Both raster and feature datasets can be used for the zone input.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:RatioA, exm:IRA ]; #IRA This was added because of the APE leaf problem. !!!
+	wf:input1 [ a ccd:FieldRaster, ccd:RatioA, exm:IRA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA]; #IRA This was added because of the APE leaf problem. !!!
 	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:RatioA ].
     
 #for Count Data    
 <https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/zonal-statistics-as-table.htm> tools:implements tools:ZonalStatisticsMeanCount.
 tools:ZonalStatisticsMeanCount  rdfs:label "Calculates the average value for values with a Count measurement level of a raster within the zones of another dataset, a zone is defined as all areas in the input that have the same value. The areas do not have to be contiguous. Both raster and feature datasets can be used for the zone input.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:CountA ];
+	wf:input1 [ a ccd:FieldRaster, ccd:CountA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA];
 	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:RatioA ]. 
     
 #### Zonal Statistics with Sum Rule
 # for Ratio Data
 <https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/zonal-statistics-as-table.htm> tools:implements tools:ZonalStatisticsSumRatio.
 tools:ZonalStatisticsSumRatio  rdfs:label "Calculates the total value for values with a Ratio measurement level of a raster within the zones of another dataset, a zone is defined as all areas in the input that have the same value. The areas do not have to be contiguous. Both raster and feature datasets can be used for the zone input.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:RatioA, exm:ERA ];
+	wf:input1 [ a ccd:FieldRaster, ccd:RatioA, exm:ERA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
 	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:RatioA, exm:ERA ].
     
 # for Count Data
 <https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/zonal-statistics-as-table.htm> tools:implements tools:ZonalStatisticsSumCount.
 tools:ZonalStatisticsSumCount  rdfs:label "Calculates the total value for values with a Count measurement level of a raster within the zones of another dataset, a zone is defined as all areas in the input that have the same value. The areas do not have to be contiguous. Both raster and feature datasets can be used for the zone input.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:CountA, exm:ERA ];
+	wf:input1 [ a ccd:FieldRaster, ccd:CountA, exm:ERA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
 	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:CountA, exm:ERA ].
-
-########### Join Field #!!this whole tool needs to be rethought. 
-#### Object Datasets
-# for nominal attributes
-<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldObjectVectorNominal.
-tools:JoinFieldObjectVectorNominal rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with a nominal scaled field.";
-	wf:input1 [ a ccd:ObjectVector, ccd:NominalA ];
-	wf:input2 [ a ccd:ObjectVector, ccd:NominalA ];
-	wf:output [ a ccd:ObjectVector, ccd:NominalA ].
-
-# for ordinal attributes
-<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldObjectVectorOrdinal.
-tools:JoinFieldObjectVectorOrdinal rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with a ordinal scaled field.";
-	wf:input1 [ a ccd:ObjectVector, ccd:OrdinalA ];
-	wf:input2 [ a ccd:ObjectVector, ccd:OrdinalA ];
-	wf:output [ a ccd:ObjectVector, ccd:OrdinalA ].
-
-# for interval attributes
-<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldObjectVectorInterval.
-tools:JoinFieldObjectVectorInterval rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with an interval scaled field.";
-	wf:input1 [ a ccd:ObjectVector, ccd:IntervalA ];
-	wf:input2 [ a ccd:ObjectVector, ccd:IntervalA ];
-	wf:output [ a ccd:ObjectVector, ccd:IntervalA ].
 	
-#for boolean attributes
-<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldObjectVectorBoolean.
-tools:JoinFieldObjectVectorBoolean rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with an interval scaled field.";
-	wf:input1 [ a ccd:ObjectVector, ccd:BooleanA ];
-	wf:input2 [ a ccd:ObjectVector, ccd:BooleanA ];
-	wf:output [ a ccd:ObjectVector, ccd:BooleanA ].
+########### Join Field 
+#### Lattice 
+#boolean
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldBoolean.
+tools:JoinFieldBoolean rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with a nominal scaled field.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:BooleanA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ]. 
 	
-####Lattice Datasets
-# for nominal attributes
-<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldObjectVectorInterval.
-tools:JoinFieldLatticeInterval rdfs:label "Joins the contents of a Lattice table to another Lattice table based on a common attribute field with an interval scaled field.";
+#nominal
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldNominal.
+tools:JoinFieldNominal rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with a nominal scaled field.";
 	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:NominalA ];
-	wf:input2 [ a ccd:Lattice, ccd:VectorA, ccd:NominalA ];
-	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:NominalA ].
-	
-# for interval attributes
-<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldObjectVectorInterval.
-tools:JoinFieldLatticeInterval rdfs:label "Joins the contents of a Lattice table to another Lattice table based on a common attribute field with an interval scaled field.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ];
-	wf:input2 [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ];
-	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ].
-	
-#for boolean attributes
-<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldObjectVectorBoolean.
-tools:JoinFieldLatticeBoolean rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with an interval scaled field.";
-	wf:input1 [ a ccd:Lattice, ccd:Vector, ccd:BooleanA ];
-	wf:input2 [ a ccd:Lattice, ccd:Vector, ccd:BooleanA ];
-	wf:output [ a ccd:Lattice, ccd:Vector, ccd:BooleanA ].
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
 
-# for ordinal attributes
-<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldObjectVectorInterval.
-tools:JoinFieldLatticeOrdinal rdfs:label "Joins the contents of a Lattice table to another Lattice table based on a common attribute field with an interval scaled field.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:OrdinalA ];
-	wf:input2 [ a ccd:Lattice, ccd:VectorA, ccd:OrdinalA ];
-	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:OrdinalA ].
+#ordinal
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldOrdinal.
+tools:JoinFieldOrdinal rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with a nominal scaled field.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:NominalA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
 	
-#### raster datasets
-#for interval data
+#interval
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldInterval.
+tools:JoinFieldInterval rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with a nominal scaled field.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+#interval IRA
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldIntervalIRA.
+tools:JoinFieldIntervalIRA rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with a nominal scaled field.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA, exm:IRA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+#ratio
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldRatio.
+tools:JoinFieldRatio rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with a nominal scaled field.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:Ratio ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+#ratio IRA
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldRatioIRA.
+tools:JoinFieldRatioIRA rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with a nominal scaled field.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:Ratio, exm:IRA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+#ratio IRA
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldCount.
+tools:JoinFieldCount rdfs:label "Joins the contents of a ObjectVector table to another ObjectVector table based on a common attribute field with a nominal scaled field.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:Count ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+#### object datasets
+#point
 <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldRasterInterval.
 tools:JoinFieldRasterInterval rdfs:label "Joins the contents of a field raster with an attribute table to another field raster with an attribute table based on a common attribute field";
-	wf:input1 [ a ccd:FieldRaster, ccd:IntervalA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:IntervalA ];
-	wf:output [ a ccd:FieldRaster, ccd:IntervalA ].
+	wf:input1 [ a ccd:ObjectPoint ];
+	wf:input2 [ a ccd:ObjectPoint ];
+	wf:output [ a ccd:ObjectPoint ].
 	
-#for nominal data
+#region
 <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldRasterInterval.
-tools:JoinFieldRasterNominal rdfs:label "Joins the contents of a field raster with an attribute table to another field raster with an attribute table based on a common attribute field";
-	wf:input1 [ a ccd:FieldRaster, ccd:NominalA ];
-	wf:input2 [ a ccd:FieldRaster, ccd:NominalA ];
-	wf:output [ a ccd:FieldRaster, ccd:NominalA ].
+tools:JoinFieldRasterInterval rdfs:label "Joins the contents of a field raster with an attribute table to another field raster with an attribute table based on a common attribute field";
+	wf:input1 [ a ccd:ObjectRegion ];
+	wf:input2 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:ObjectRegion ].
+	
+#general
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldRasterInterval.
+tools:JoinFieldRasterInterval rdfs:label "Joins the contents of a field raster with an attribute table to another field raster with an attribute table based on a common attribute field";
+	wf:input1 [ a ccd:ObjectVector ];
+	wf:input2 [ a ccd:ObjectVector ];
+	wf:output [ a ccd:ObjectVector ].
+	
+#### raster datasets
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/join-field.htm> tools:implements tools:JoinFieldRasterInterval.
+tools:JoinFieldRasterInterval rdfs:label "Joins the contents of a field raster with an attribute table to another field raster with an attribute table based on a common attribute field";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:input2 [ a ccd:FieldRaster ];
+	wf:output [ a ccd:FieldRaster ].
 
 ########### Reclassify 
 ####Boolean
@@ -399,22 +458,29 @@ tools:ThiessenPolygonsCount rdfs:label "Creates Thiessen polygons from point fea
 tools:IdentityPoint rdfs:label "Computes a geometric intersection of the input features and identity features.";
 	wf:input1 [ a ccd:ObjectPoint ];
 	wf:input2 [ a ccd:ObjectPoint ];
-	wf:output [ a ccd:ObjectPoint ].
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
 	
 #Region
 <https://desktop.arcgis.com/en/arcmap/latest/tools/analysis-toolbox/identity.htm> tools:implements tools:IdentityRegion.
 tools:IdentityRegion rdfs:label "Computes a geometric intersection of the input features and identity features.";
 	wf:input1 [ a ccd:ObjectRegion ];
 	wf:input2 [ a ccd:ObjectRegion ];
-	wf:output [ a ccd:ObjectRegion ].
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
 	
-#Lattice
-<https://desktop.arcgis.com/en/arcmap/latest/tools/analysis-toolbox/identity.htm> tools:implements tools:IdentityLattice.
-tools:IdentityLattice rdfs:label "Computes a geometric intersection of the input features and identity features.";
-	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
+#MixedPoint
+<https://desktop.arcgis.com/en/arcmap/latest/tools/analysis-toolbox/identity.htm> tools:implements tools:IdentityMixedPoint.
+tools:IdentityMixedPoint rdfs:label "Computes a geometric intersection of the input features and identity features.";
+	wf:input1 [ a ccd:ObjectPoint ];
+	wf:input2 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+#MixedPointLattice
+<https://desktop.arcgis.com/en/arcmap/latest/tools/analysis-toolbox/identity.htm> tools:implements tools:IdentityMixedPointLattice.
+tools:IdentityMixedPoint rdfs:label "Computes a geometric intersection of the input features and identity features.";
+	wf:input1 [ a ccd:ObjectPoint ];
 	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
 	wf:output [ a ccd:Lattice, ccd:VectorA ].
-
+	
 ########### Add Geometry Attributes
 # add Area
 <https://pro.arcgis.com/en/pro-app/tool-reference/data-management/add-geometry-attributes.htm> tools:implements tools:AddArea.
@@ -439,45 +505,45 @@ tools:AddLine rdfs:label "Adds a line attribute to an object layer.";
 # for Ratio Data 
 <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/dissolve.htm> tools:implements tools:DissolveSumRatio.
 tools:DissolveSumRatio rdfs:label "Aggregates features based on specified attributes using the Sum rule with Ratio data.";
-	wf:input1 [ a ccd:ObjectVector, ccd:RatioA ];
-	wf:output [ a ccd:ObjectVector, ccd:RatioA ]. 
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:RatioA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:RatioA ]. 
 
 # for Count Data
 <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/dissolve.htm> tools:implements tools:DissolveSumCount.
 tools:DissolveSumCount rdfs:label "Aggregates features based on specified attributes using the Sum rule with Count data.";
-	wf:input1 [ a ccd:ObjectVector, ccd:CountA ];
-	wf:output [ a ccd:ObjectVector, ccd:CountA ]. 
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:CountA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:CountA ]. 
 	
 # for Interval Data
 <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/dissolve.htm> tools:implements tools:DissolveSumInterval.
 tools:DissolveSumInterval rdfs:label "Aggregates features based on specified attributes using the Sum rule with Interval data.";
-	wf:input1 [ a ccd:ObjectVector, ccd:IntervalA ];
-	wf:output [ a ccd:ObjectVector, ccd:IntervalA ]. 
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ]. 
 
 ####Mean Statistic
 # for Ratio Data 
 <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/dissolve.htm> tools:implements tools:DissolveMeanRatio.
 tools:DissolveMeanRatio rdfs:label "Aggregates features based on specified attributes using the Mean rule with Ratio data.";
-	wf:input1 [ a ccd:ObjectVector, ccd:RatioA ];
-	wf:output [ a ccd:ObjectVector, ccd:RatioA ].
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:RatioA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:RatioA ].
 	
 # for Count Data
 <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/dissolve.htm> tools:implements tools:DissolveMeanCount.
 tools:DissolveMeanCount rdfs:label "Aggregates features based on specified attributes using the Mean rule with Count data.";
-	wf:input1 [ a ccd:ObjectVector, ccd:CountA ];
-	wf:output [ a ccd:ObjectVector, ccd:CountA ]. 
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:CountA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:CountA ]. 
 
 # for Interval Data
 <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/dissolve.htm> tools:implements tools:DissolveMeanInterval.
 tools:DissolveMeanInterval rdfs:label "Aggregates features based on specified attributes using the Mean rule with Interval data.";
-	wf:input1 [ a ccd:ObjectVector, ccd:IntervalA ];
-	wf:output [ a ccd:ObjectVector, ccd:IntervalA ]. 
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ]. 
 	
 ####Count Statistic
 <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/dissolve.htm> tools:implements tools:DissolveCount.
 tools:DissolveCount rdfs:label "Aggregates features based on specified attributes using the Count rule.";
-	wf:input1 [ a ccd:ObjectVector, ccd:CountA ];
-	wf:output [ a ccd:ObjectVector, ccd:CountA ]. 
+	wf:input1 [ a ccd:Lattice, ccd:VectorA, ccd:CountA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:CountA ]. 
 
 ########### SpatialJoin
 #### SpatialJoin with Sum Rule
@@ -783,6 +849,28 @@ tools:LocalMapAlgebraMultiplyRatioCount rdfs:label "Builds and executes a Local 
     	wf:input2 [ a ccd:FieldRaster, ccd:CountA ];
     	wf:output [ a ccd:FieldRaster, ccd:RatioA ].
 
+####Inequalities Ordinal
+<https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm> tools:implements tools:CalculatorInequalitiesNominalOrdinal.
+tools:CalculatorInequalitiesNominalOrdinal rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
+	wf:input1 [ a ccd:FieldRaster, ccd:OrdinalA ];
+	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
+	
+#### Existence Raster Overlay
+<https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm> tools:implements tools:CalculatorNominalOverlay.
+tools:CalculatorNominalOverlay rdfs:label "Builds and executes a local map algebra expression using Python syntax using rasters with a boolean measurement level, in this case it executes a & function.";
+	wf:input1 [ a ccd:ExistenceRaster, ccd:BooleanA ];
+	wf:input2 [ a ccd:ExistenceRaster, ccd:BooleanA ];
+	wf:input3 [ a ccd:ExistenceRaster, ccd:BooleanA ];
+	wf:input4 [ a ccd:ExistenceRaster, ccd:BooleanA ];
+	wf:input5 [ a ccd:ExistenceRaster, ccd:BooleanA ];
+	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
+	
+####Inequalities Ratio
+<https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm> tools:implements tools:CalculatorInequalitiesRatio.
+tools:CalculatorInequalitiesNominalRatio rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
+	wf:input1 [ a ccd:FieldRaster, ccd:Ratio ];
+	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
+
 ########### Least Cost Path Tool
 tools:FullLeastCostPath tools:implements tools:LeastCostPathRasterRatio ;
     	rdf:first <https://pro.arcgis.com/en/pro-app/help/data/imagery/cost-distance-global-function.htm> ;
@@ -807,14 +895,14 @@ tools:EqualTo rdfs:label "Performs a relational equal-to operation on two inputs
 <https://pro.arcgis.com/en/pro-app/tool-reference/data-management/clip.htm> tools:implements tools:ClipField2ObjectExtentInterval.
 tools:ClipField2ObjectExtentInterval rdfs:label "Clips some field raster to the extent of an object layer.";
     wf:input1 [ a ccd:FieldRaster, ccd:IntervalA ];
-    wf:input2 [ a ccd:ObjectVector ];
+    wf:input2 [ a ccd:Lattice, ccd:VectorA ];
     wf:output [ a ccd:FieldRaster, ccd:IntervalA ]. 
 
 #ordinal attributes 
 <https://pro.arcgis.com/en/pro-app/tool-reference/data-management/clip.htm> tools:implements tools:ClipField2ObjectExtentOrdinal.
 tools:ClipField2ObjectExtentOrdinal rdfs:label "Clips some field raster to the extent of an object layer.";
     wf:input1 [ a ccd:FieldRaster, ccd:OrdinalA ];
-    wf:input2 [ a ccd:ObjectVector ];
+    wf:input2 [ a ccd:Lattice, ccd:VectorA ];
     wf:output [ a ccd:FieldRaster, ccd:OrdinalA]. 
 
 ############ Region Group
