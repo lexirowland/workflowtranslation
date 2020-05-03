@@ -14,12 +14,12 @@
 _:wf2 a wf:Workflow;
 	rdfs:comment "What is the proportion of elderly people living in each PC4 area in Amsterdam?"@en;	
 	wf:source <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas	
-	wf:source <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #cbs buurt statistics with percentages of elderly people by neighbourhood
+	wf:source <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/wijk-en-buurtkaart-2010>; #cbs buurt statistics with percentages of elderly people by neighbourhood
 	wf:edge _:wf2_1, _:wf2_2, _:wf2_3, _:wf2_4, _:wf2_5.
 	
 _:wf2_1 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#union>;
 	wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vector, nominalA
-	wf:input2 <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #lattice, vector, ratioA
+	wf:input2 <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/wijk-en-buurtkaart-2010>; #lattice, vector, ratioA
 	wf:output _:clipped. #lattice, vectorA, nominalA
 		
 _:wf2_2 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#add-geometry-attributes>; #adding area

@@ -36,10 +36,84 @@ qtools:UnionObjectPoint rdfs:label "Checks overlaps between features within the 
 	wf:output [ a ccd:Lattice, ccd:VectorA ]. 
 
 ########### Add Field to Attribute Table
-<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTable.
-qtools:AddFieldToAttributesTable rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+####ObjectVector
+#calculate ratio
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableVectorRatio.
+qtools:AddFieldToAttributesTableVectorRatio rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
 	wf:input1 [ a ccd:ObjectVector ];
-	wf:output [ a ccd:ObjectVector ].
+	wf:output [ a ccd:ObjectVector, ccd:RatioA ].
+	
+#calculate interval
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableVector.
+qtools:AddFieldToAttributesTableVector rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:ObjectVector ];
+	wf:output [ a ccd:ObjectVector, ccd:IntervalA].
+	
+####ObjectRegion	
+#calculate ratio	
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableRegionRatio.
+qtools:AddFieldToAttributesTableRegionRatio rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:ObjectRegion, ccd:RatioA ].
+	
+#calculate interval
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableRegionInterval.
+qtools:AddFieldToAttributesTableRegionInterval rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:ObjectRegion, ccd:RatioA ].
+	
+####Lattice
+#calculate ratio	
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableLatticeRatio.
+qtools:AddFieldToAttributesTableLatticeRatio rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:RatioA ].
+	
+#calculate interval	
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableLatticeInterval.
+qtools:AddFieldToAttributesTableLatticeInterval rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ].
+	
+####Coverage
+#calculate ratio	
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableCoverageRatio.
+qtools:AddFieldToAttributesTableCoverageRatio rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:Coverage, ccd:NominalA ];
+	wf:output [ a ccd:Coverage, ccd:RatioA ].
+	
+#calculate interval
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableCoverageInterval.
+qtools:AddFieldToAttributesTableCoverageInterval rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:Coverage, ccd:NominalA ];
+	wf:output [ a ccd:Coverage, ccd:IntervalA ].
+	
+####Contour	
+#calculate ratio
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableContourRatio.
+qtools:AddFieldToAttributesTableContourRatio rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:Contour, ccd:OrdinalA ];
+	wf:output [ a ccd:ObjectRegion, ccd:RatioA ].
+
+#calculate interval
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableContourInterval.
+qtools:AddFieldToAttributesTableContourInterval rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:Contour, ccd:OrdinalA ];
+	wf:output [ a ccd:ObjectRegion, ccd:IntervalA ].
+	
+####Existence Vector
+#calculate ratio
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableExistenceRasterRatio.
+qtools:AddFieldToAttributesTableExistenceRasterRatio rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:ExistenceVector, ccd:BooleanA ];
+	wf:output [ a ccd:ObjectRegion, ccd:RatioA ].
+	
+####Field Raster
+#calculate ratio	
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table> tools:implements qtools:AddFieldToAttributesTableFieldRaster.
+qtools:AddFieldToAttributesTableFieldRaster rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:FieldRaster, ccd:BooleanA ];
+	wf:output [ a ccd:ObjectRegion, ccd:RatioA ].
 
 ########### Add Geometry Attributes
 # for Area
@@ -152,7 +226,7 @@ qtools:AttributesJoinCountTess rdfs:label "Counts the number of features from on
     wf:output [ a ccd:Lattice, ccd:VectorA, ccd:CountA, exm:ERA ].
 
 ########### Supertool: Select by Attribute and Extract Selected Features
-qtools:FullSelectAttributesAndExtractFeatures tools:implements qtools:SelectAttributesObjectsAndExtractFeatures;
+qtools:FullSelectAttributesAndExtractFeatures tools:implements qtools:SelectAttributesObjectsAndExtractFeatures, qtools:SelectAttributesCoverageAndExtractFeaturesExistenceVector;
   wf:edge _:wf1_1, _:wf1_2;
     wf:source _:in11;
   rdfs:label "Selects attributes based on a set of input criteria/expression and then extracts the selected features into a new feature class.".
@@ -166,21 +240,39 @@ _:wf1_2 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/process
 qtools:SelectAttributesObjectsAndExtractFeatures rdfs:label "Select object attributes based on a set of input criteria or expressions and extracts these into a new feature class.";
   wf:input1 [ a ccd:ObjectVector ];
   wf:output [ a ccd:ObjectVector ]. 
+  
+qtools:SelectAttributesCoverageAndExtractFeaturesExistenceVector rdfs:label "Select object attributes based on a set of input criteria or expressions and extracts these into a new feature class.";
+	wf:input1 [ a ccd:Coverage ];
+	wf:output [ a ccd:ExistenceVector, ccd:BooleanA ].
 
 ########### Select by Attributes
-<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorselection.html#select-by-attribute> tools:implements qtools:SelectByAttribute.
-qtools:SelectByAttribute rdfs:label "The criteria for selecting features is based on the values of an attribute from the input layer.";
+#object vector
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorselection.html#select-by-attribute> tools:implements qtools:SelectByAttributeObjectVector.
+qtools:SelectByAttributeObjectVector rdfs:label "The criteria for selecting features is based on the values of an attribute from the input layer.";
 	wf:input1 [ a ccd:ObjectVector ];
-	wf:output [ a ccd:ObjectVector ]. 
+	wf:output [ a ccd:ObjectVector ].
+
+#coverage
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorselection.html#select-by-attribute> tools:implements qtools:SelectByAttributeCoverage.
+qtools:SelectByAttributeCoverage rdfs:label "The criteria for selecting features is based on the values of an attribute from the input layer.";
+	wf:input1 [ a ccd:Coverage ];
+	wf:output [ a ccd:Coverage ].
 
 ########### Extract Selected Features
-<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorgeneral.html#extract-selected-features> tools:implements qtools:ExtractSelectedFeatures.
-qtools:ExtractSelectedFeatures rdfs:label "Copies features from the input feature class or layer to a new feature class.";
+#ObjectVector
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorgeneral.html#extract-selected-features> tools:implements qtools:ExtractSelectedFeaturesObjectVector.
+qtools:ExtractSelectedFeaturesObjectVector rdfs:label "Copies features from the input feature class or layer to a new feature class.";
 	wf:input1 [ a ccd:ObjectVector ];
 	wf:output [ a ccd:ObjectVector ]. 
 
+#Coverage to ExistenceVector
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorselection.html#select-by-attribute> tools:implements qtools:ExtractSelectedFeaturesCoverageToObjectRegion.
+qtools:ExtractSelectedFeaturesCoverageToObjectRegion rdfs:label "The criteria for selecting features is based on the values of an attribute from the input layer.";
+	wf:input1 [ a ccd:Coverage ];
+	wf:output [ a ccd:ExistenceVector, ccd:BooleanA ].
+
 ########### Supertool: Rasterise Object Dataset and Perform Proximity Analysis
-qtools:FullRasteriseAndProximityAnalysis tools:implements qtools:RasteriseGeneralObjectAndProximityAnalysis, qtools:RasteriseObjectLineAndProximityAnalysis, qtools:RasteriseObjectPointAndProximityAnalysis, qtools:RasteriseObjectRegionAndProximityAnalysis;
+qtools:FullRasteriseAndProximityAnalysis tools:implements qtools:RasteriseExistenceVectorAndProximityAnalysis, qtools:RasteriseGeneralObjectAndProximityAnalysis, qtools:RasteriseObjectLineAndProximityAnalysis, qtools:RasteriseObjectPointAndProximityAnalysis, qtools:RasteriseObjectRegionAndProximityAnalysis;
   wf:edge _:wf2_1, _:wf2_2;
     wf:source _:in21;
   rdfs:label "Rasterises an object dataset and performs a proximity analysis on the resulting raster dataset.". 
@@ -210,6 +302,11 @@ qtools:RasteriseObjectLineAndProximityAnalysis rdfs:label "Rasterises an object 
 qtools:RasteriseGeneralObjectAndProximityAnalysis rdfs:label "Rasterises general object vector, including a lattice, and performs a proxmity analysis on the output raster.";
   wf:input1 [ a ccd:ObjectVector ];
   wf:output [ a ccd:FieldRaster, ccd:RatioA ]. 
+  
+#supertool for existence vector
+qtools:RasteriseExistenceVectorAndProximityAnalysis rdfs:label "Rasterises existence vector and performs a proximity analysis on the output raster.";
+	wf:input1 [ a ccd:ExistenceVector, ccd:BooleanA ];
+	wf:output [ a ccd:FieldRaster, ccd:RatioA ].
 
 ########### Rasterise
 #### Object Vector to Existence Raster (only kept the object vector to boolean as this method only denotes the existence of polygons, if it also would give a value it would be a field raster). The input can only be boolean, but every input is already boolean for the purpose of this analysis (it exists or it doesn't)
@@ -236,6 +333,12 @@ qtools:ObjectLineToExistenceRaster rdfs:label "Converts Object lines with any me
 qtools:ObjectVectorToExistenceRaster rdfs:label "Converts Object vectors with any measurement level to a raster denoting the existence of a feature at a location in the raster";
     wf:input1 [ a ccd:ObjectVector ];
     wf:output [ a ccd:NoDataExistenceRaster ].
+    
+#for existence vector
+<https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/gdal/vectorconversion.html#rasterize-vector-to-raster> tools:implements qtools:ExistenceVectorToNoDataExistenceRaster.
+qtools:ExistenceVectorToNoDataExistenceRaster rdfs:label "Converts Object vectors with any measurement level to a raster denoting the existence of a feature at a location in the raster";
+	wf:input1 [ a ccd:ExistenceVector, ccd:BooleanA ];
+	wf:output [ a ccd:NoDataExistenceRaster ]. 
     
 #### Field Polygon to Raster
 <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/gdal/vectorconversion.html#rasterize-vector-to-raster> tools:implements qtools:CoverageToFieldRaster.
@@ -506,12 +609,6 @@ qtools:CalculatorMultiplyRatioCount rdfs:label "Builds and executes a Local Map 
     wf:input2 [ a ccd:FieldRaster, ccd:CountA ];
     wf:output [ a ccd:FieldRaster, ccd:RatioA ].
     
-####Inequalities Ordinal
-<https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator> tools:implements qtools:CalculatorInequalitiesNominalOrdinal.
-qtools:CalculatorInequalitiesNominalOrdinal rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
-	wf:input1 [ a ccd:FieldRaster, ccd:OrdinalA ];
-	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
-	
 #### Existence Raster Overlay
 <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator> tools:implements qtools:CalculatorNominalOverlay.
 qtools:CalculatorNominalOverlay rdfs:label "Builds and executes a local map algebra expression using Python syntax using rasters with a boolean measurement level, in this case it executes a & function.";
@@ -522,11 +619,29 @@ qtools:CalculatorNominalOverlay rdfs:label "Builds and executes a local map alge
 	wf:input5 [ a ccd:ExistenceRaster, ccd:BooleanA ];
 	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
 
-####Inequalities Ordinal
+####Inequalities Ratio
 <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator> tools:implements qtools:CalculatorInequalitiesRatio.
 qtools:CalculatorInequalitiesRatio rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
 	wf:input1 [ a ccd:FieldRaster, ccd:RatioA ];
 	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
+	
+####Inequalities Nominal
+<https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator> tools:implements qtools:CalculatorInequalitiesRatio.
+qtools:CalculatorInequalitiesRatio rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
+	wf:input1 [ a ccd:FieldRaster, ccd:NominalA ];
+	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
+	
+####Inequalities Ordinal
+<https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator> tools:implements qtools:CalculatorInequalitiesNominalOrdinal.
+qtools:CalculatorInequalitiesNominalOrdinal rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
+	wf:input1 [ a ccd:FieldRaster, ccd:OrdinalA ];
+	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
+	
+####SetEqualTo
+<https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator> tools:implements qtools:CalculatorInequalitiesSetEqualTo. 
+qtools:CalculatorSetEqualTo rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
+	wf:input1 [ a ccd:FieldRaster, ccd:NominalA];
+	wf:output [ a ccd:FieldRaster, ccd:NominalA ]. 
 
 ########### r.clump 
 <https://grass.osgeo.org/grass78/manuals/r.clump.html> tools:implements qtools:r-clumpFieldRaster.
@@ -541,42 +656,103 @@ qtools:r-clumpExistenceRaster rdfs:label "For each cell in the output, the ident
 	wf:output [ a ccd:FieldRaster, ccd:NominalA ].
 
 ########### Clip
-#interval attributes
-<https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#qgisclip> tools:implements qtools:ClipField2ObjectExtentInterval.
-qtools:ClipField2ObjectExtentInterval rdfs:label "Clips some field raster to the extent of an object layer.";
-    wf:input1 [ a ccd:FieldRaster, ccd:IntervalA ];
-    wf:input2 [ a ccd:Lattice, ccd:VectorA ];
-    wf:output [ a ccd:FieldRaster, ccd:IntervalA ]. 
-
-#ordinal attributes 
-<https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#qgisclip> tools:implements qtools:ClipField2ObjectExtentOrdinal.
-qtools:ClipField2ObjectExtentOrdinal rdfs:label "Clips some field raster to the extent of an object layer.";
-    wf:input1 [ a ccd:FieldRaster, ccd:OrdinalA ];
-    wf:input2 [ a ccd:Lattice, ccd:VectorA ];
-    wf:output [ a ccd:FieldRaster, ccd:OrdinalA]. 
+#Clip Vector
+<https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#qgisclip> tools:implements qtools:ClipVectorToRegionExtent.
+qtools:ClipVectorToRegionExtent rdfs:label "Clips some object vector to the extent of an object region layer.";
+	wf:input1 [ a ccd:ObjectVector ];
+	wf:input2 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:ObjectVector ]. 
+	
+<https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#qgisclip> tools:implements qtools:ClipVectorToLatticeExtent.
+qtools:ClipVectorToLatticeExtent rdfs:label "Clips some object vector to extent of a lattice layer.";
+	wf:input1 [ a ccd:ObjectVector ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:ObjectVector ]. 
+	
+<https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#qgisclip> tools:implements qtools:ClipLatticeToLatticeExtent. 
+qtools:ClipLatticeToLatticeExtent rdfs:label "Clips some lattice to the extent of a lattice layer.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].  
+	
+<https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#qgisclip> tools:implements qtools:ClipLatticeToObjectRegionExtent. 
+qtools:ClipLatticeToObjectRegionExtent rdfs:label "Clips some lattice to the extent of a object region layer.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
+	wf:input2 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:ObjectRegion ].  
+    
+#Clip Raster by Extent 
+<https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/gdal/rasterextraction.html#id6> tools:implements qtools:ClipRasterToLatticeExtent.
+qtools:ClipRasterToLatticeExtent rdfs:label "Clip some field raster to the extent of some lattice layer.";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:FieldRaster ].
+	
+<https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/gdal/rasterextraction.html#id6> tools:implements qtools:ClipRasterToRegionExtent.
+qtools:ClipRasterToRegionExtent rdfs:label "Clip some field raster to the extent of some region layer.";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:input2 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:FieldRaster ].
 
 ########### Zonal Geometry Supertool 
 #### To Calculate Area
-qtools:ZonalGeometryRasterAreaFull tools:implements qtools:ZonalGeometryRasterArea;
+qtools:ZonalGeometryRasterAreaFull tools:implements qtools:ZonalGeometryAreaFieldRasterToRegion, qtools:ZonalGeometryAreaExistenceRasterToRegion, qtools:ZonalGeometryAreaExistenceRasterToCoverage;
 	wf:edge _:wf4_1, _:wf4_2, _:wf4_3;
 	wf:source _:in41;
 	rdfs:label "Supertool to produce the equivalent to the zonal geometry tool in ArcMap to perform area, perimeter analysis of raster zones in a dataset.".
-_:wf4_1 wf:applicationOf <https://grass.osgeo.org/grass78/manuals/r.to.vect.html>;
-	wf:input1 _:in41;
-	wf:output _:out41.
+_:wf4_1 wf:applicationOf <https://gdal.org/programs/gdal_polygonize.html#gdal-polygonize>;
+	wf:input1 _:in41; #fieldraster, existenceraster
+	wf:output _:out41.  #region, lattice, contour, coverage
 _:wf4_2 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table>;
-	wf:input1 _:out41;
-	wf:output _:out42. #object region, ratioA as area is calculated. 
+	wf:input1 _:out41; #region, lattice, contour, coverage
+	wf:output _:out42. #region OR lattice, ratioA as area is calculated. 
     
-qtools:ZonalGeometryRasterArea rdfs:label "Vectorises a raster adds a field and then calculates the area of the different zones in a raster by adding and calculating a field in an attribute table.";
-	wf:input1 [ a ccd:FieldRaster, ccd:NominalA ];
+qtools:ZonalGeometryAreaFieldRasterToRegion rdfs:label "Polygonises a field raster adds a field and then calculates the area of the different zones in a raster by adding and calculating a field in an attribute table.";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:output [ a ccd:ObjectRegion, ccd:RatioA ].  
+
+qtools:ZonalGeometryAreaExistenceRasterToRegion rdfs:label "Polygonises a field raster adds a field and then calculates the area of the different zones in a raster by adding and calculating a field in an attribute table.";
+	wf:input1 [ a ccd:ExistenceRaster, ccd:BooleanA ];
 	wf:output [ a ccd:ObjectRegion, ccd:RatioA ].
+
+qtools:ZonalGeometryAreaExistenceRasterToCoverage rdfs:label "Polygonises a field raster adds a field and then calculates the area of the different zones in a raster by adding and calculating a field in an attribute table.";
+	wf:input1 [ a ccd:ExistenceRaster, ccd:BooleanA ];
+	wf:output [ a ccd:Coverage, ccd:RatioA ]. 	
+
+######### Polygonise 
+#Field Raster to polygons
+<https://gdal.org/programs/gdal_polygonize.html#gdal-polygonize> tools:implements qtools:PolygoniseFieldRasterToRegion.
+qtools:PolygoniseFieldRasterToRegion rdfs:label "Produces a polygon feature layer in the form of an object region from a raster.";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:output [ a ccd:ObjectRegion ].
 	
+<https://gdal.org/programs/gdal_polygonize.html#gdal-polygonize> tools:implements qtools:PolygoniseFieldRasterToContour.
+qtools:PolygoniseFieldRasterToContour rdfs:label "Produces a polygon feature layer in the form of an object region from a raster.";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:output [ a ccd:Contour, ccd:OrdinalA ].
+	
+<https://gdal.org/programs/gdal_polygonize.html#gdal-polygonize> tools:implements qtools:PolygoniseFieldRasterToCoverage.
+qtools:PolygoniseFieldRasterToCoverage rdfs:label "Produces a polygon feature layer in the form of an object region from a raster.";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:output [ a ccd:Coverage, ccd:NominalA ]. 
+	
+<https://gdal.org/programs/gdal_polygonize.html#gdal-polygonize> tools:implements qtools:PolygoniseFieldRasterToExistenceVector.
+qtools:PolygoniseFieldRasterToObjectRegion rdfs:label "Produces a polygon feature layer in the form of an object region from a raster.";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:output [ a ccd:ObjectRegion ]. 
+
+#Existence Raster to polygons
+<https://gdal.org/programs/gdal_polygonize.html#gdal-polygonize> tools:implements qtools:PolygoniseExistenceRasterToRegion.
+qtools:PolygoniseExistenceRasterToExistenceVector rdfs:label "Produces a polygon feature layer in the form of an object region from a raster.";
+	wf:input1 [ a ccd:ExistenceRaster, ccd:BooleanA ];
+	wf:output [ a ccd:ExistenceVector, ccd:BooleanA ]. 
+
 ######### Raster to Vector tool
-<https://grass.osgeo.org/grass78/manuals/r.to.vect.html>  tools:implements qtools:RasterToVector.
+<https://grass.osgeo.org/grass78/manuals/r.to.vect.html> tools:implements qtools:RasterToVector.
 qtools:RasterToVector rdfs:label "Vectorise a field raster based on values present within the raster dataset.";
 	wf:input1 [ a ccd:FieldRaster, ccd:NominalA ];
-	wf:output [ a ccd:ObjectVector, ccd:NominalA ].
+	wf:output [ a ccd:ObjectVector, ccd:NominalA ].	
+	
 	
 	
 	

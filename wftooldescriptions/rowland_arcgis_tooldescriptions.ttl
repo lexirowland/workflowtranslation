@@ -6,7 +6,7 @@
 @prefix exm: <http://geographicknowledge.de/vocab/ExtensiveMeasures.rdf#>.
 
 ########### Supertool: Adding and Calculating a Field 
-tools:FullAddCalculateField tools:implements tools:AddCalculateFieldPointRatio, tools:AddCalculateFieldPointInterval, tools:AddCalculateFieldPointNominal, tools:AddCalculateFieldPointCount, tools:AddCalculateFieldRegionRatio, tools:AddCalculateFieldRegionInterval, tools:AddCalculateFieldRegionNominal, tools:AddCalculateFieldRegionCount, tools:AddCalculateRasterFieldRatio, tools:AddCalculateRasterFieldInterval, tools:AddCalculateRasterFieldNominal;
+tools:FullAddCalculateField tools:implements tools:AddCalculateContourRatio, tools:AddCalculateCoverageRatio, tools:AddCalculateFieldPointRatio, tools:AddCalculateFieldPointInterval, tools:AddCalculateFieldPointNominal, tools:AddCalculateFieldPointCount, tools:AddCalculateFieldRegionRatio, tools:AddCalculateFieldRegionInterval, tools:AddCalculateFieldRegionNominal, tools:AddCalculateFieldRegionCount, tools:AddCalculateRasterFieldRatio, tools:AddCalculateRasterFieldInterval, tools:AddCalculateRasterFieldNominal, tools:AddCalculateExistenceRasterFieldRatio, tools:AddCalculateExistenceRasterFieldInterval, tools:AddCalculateExistenceRasterFieldNominal;
 	wf:edge _:wf1_1, _:wf1_2;
 		wf:source _:in11;
 	rdfs:label "Adding a field to an attribute table and calculating an input for that field based on a SQL expression. This is added to the attribute table of the existing dataset.".
@@ -59,6 +59,17 @@ tools:AddCalculateFieldRegionNominal rdfs:label "Adds a new field to a region ob
 tools:AddCalculateFieldRegionCount rdfs:label "Adds a new field to a region dataset and calculates the field's count scaled values based on a given expression.";	
 	wf:input1 [ a ccd:ObjectPoint ];
 	wf:output [ a ccd:ObjectPoint, ccd:CountA ].
+	
+#for Tesselated Field
+#for ratio scaled coverage
+tools:AddCalculateCoverageRatio rdfs:label "Adds a new field to a coverage dataset and calculates the field's ratio scaled value based on a given expression.";
+	wf:input1 [ a ccd:Coverage ];
+	wf:output [ a ccd:Coverage, ccd:Ratio ]. 
+	
+#for ratio scaled coverage
+tools:AddCalculateContourRatio rdfs:label "Adds a new field to a coverage dataset and calculates the field's ratio scaled value based on a given expression.";
+	wf:input1 [ a ccd:Contour, ccd:OrdinalA ];
+	wf:output [ a ccd:Coverage, ccd:Ratio ]. 
 
 ####for FieldRaster 
 # for ratio scaled raster field
@@ -75,8 +86,31 @@ tools:AddCalculateRasterFieldInterval rdfs:label "Adds a new field to a raster d
 tools:AddCalculateRasterFieldNominal rdfs:label "Adds a new field to a raster dataset and calculates the field's nominal scaled value based on a given expression.";
 	wf:input1 [ a ccd:FieldRaster ];
 	wf:output [ a ccd:FieldRaster, ccd:NominalA ].
+	
+####for ExistenceVector
+# for ratio scaled existence vector
+tools:AddCalculateExistenceVectorFieldRatio rdfs:label "Adds a new field to a raster dataset and calculates the field's ratio scaled value based on a given expression.";
+	wf:input1 [ a ccd:ExistenceVector, ccd:BooleanA ];
+	wf:output [ a ccd:ObjectRegion, ccd:RatioA ]. 
+	
+####for ExistenceRaster 
+# for ratio scaled raster field
+tools:AddCalculateExistenceRasterFieldRatio rdfs:label "Adds a new field to a raster dataset and calculates the field's ratio scaled value based on a given expression.";
+	wf:input1 [ a ccd:ExistenceRaster, ccd:BooleanA ];
+	wf:output [ a ccd:FieldRaster, ccd:RatioA ]. 
+
+# for interval scaled raster field
+tools:AddCalculateExistenceRasterFieldInterval rdfs:label "Adds a new field to a raster dataset and calculates the field's interval scaled value based on a given expression.";
+	wf:input1 [ a ccd:ExistenceRaster, ccd:BooleanA ];
+	wf:output [ a ccd:FieldRaster, ccd:IntervalA ]. 
+
+# for nominal scaled raster field
+tools:AddCalculateExistenceRasterFieldNominal rdfs:label "Adds a new field to a raster dataset and calculates the field's nominal scaled value based on a given expression.";
+	wf:input1 [ a ccd:ExistenceRaster, ccd:BooleanA ];
+	wf:output [ a ccd:FieldRaster, ccd:NominalA ].
 
 ########### Add Field 
+####Objects
 # to Point Object
 <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:AddFieldPoint.
 tools:AddFieldPoint rdfs:label "Adds an attribute field to the attribute table of an object layer.";
@@ -89,11 +123,126 @@ tools:AddFieldRegion rdfs:label "Adds an attribute field to the attribute table 
 	wf:input1 [ a ccd:ObjectRegion ];
 	wf:output [ a ccd:ObjectRegion ].
 
-# to Field 
+#to Lattice
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:AddFieldLattice.
+tools:AddFieldLattice rdfs:label "Adds an attribute field to the attribute table of an object layer.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].
+	
+#to Existence Vector
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:AddFieldExistenceVector.
+tools:AddFieldExistenceVector rdfs:label "Adds an attribute fiedl to the atrribute field of an existence vector.";
+	wf:input1 [ a ccd:ExistenceVector, ccd:BooleanA ];
+	wf:output [ a ccd:ExistenceVector, ccd:BooleanA ]. 
+
+#### Fields 
+#field raster
 <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:AddFieldRaster.
 tools:AddFieldRaster rdfs:label "Adds a field to the attribute table of an Field Raster layer.";
 	wf:input1 [ a ccd:FieldRaster ];
 	wf:output [ a ccd:FieldRaster ]. 
+
+#coverage
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:AddFieldCoverage.
+tools:AddFieldCoverage rdfs:label "Adds a field to the attribute table of an Field Raster layer.";
+	wf:input1 [ a ccd:Coverage ];
+	wf:output [ a ccd:Coverage ].
+
+#contour
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:AddFieldContour.
+tools:AddFieldContour rdfs:label "Adds a field to the attribute table of an Field Raster layer.";
+	wf:input1 [ a ccd:Contour, ccd:OrdinalA ];
+	wf:output [ a ccd:Contour ].
+	
+########### Calculate Field
+#### Point Object
+#calculate ratio
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldPointRatio.
+tools:CalculateFieldPointRatio rdfs:label "Adds an attribute field to the attribute table of an object layer.";
+	wf:input1 [ a ccd:ObjectPoint ];
+	wf:output [ a ccd:ObjectPoint, ccd:RatioA ].
+	
+#calculate interval
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldPointInterval.
+tools:CalculateFieldInterval rdfs:label "Adds an attribute field to the attribute table of an object layer.";
+	wf:input1 [ a ccd:ObjectPoint ];
+	wf:output [ a ccd:ObjectPoint, ccd:IntervalA ].
+	
+#calculate count
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldPointCount.
+tools:CalculateFieldCount rdfs:label "Adds an attribute field to the attribute table of an object layer.";
+	wf:input1 [ a ccd:ObjectPoint ];
+	wf:output [ a ccd:ObjectPoint, ccd:CountA ].
+	
+#### Region Object
+#calculate ratio
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldRegionRatio.
+tools:CalculateFieldRegionRatio rdfs:label "Adds an attribute field to the attribute table of an object layer.";
+	wf:input1 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:ObjectRegion, ccd:RatioA ].
+	
+#calculate interval
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldRegionInterval.
+tools:CalculateFieldRegionInterval rdfs:label "Adds an attribute field to the attribute table of an object layer.";
+	wf:input1 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:ObjectRegion, ccd:IntervalA ].
+	
+#calculate count
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldRegionCount.
+tools:CalculateFieldRegionCount rdfs:label "Adds an attribute field to the attribute table of an object layer.";
+	wf:input1 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:ObjectRegion, ccd:CountA ].
+
+####Lattice
+#calculate ratio
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldLatticeRatio.
+tools:CalculateFieldLatticeRatio rdfs:label "Adds an attribute field to the attribute table of an object layer.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:RatioA ].
+	
+#calculate interval
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldLatticeInterval.
+tools:CalculateFieldLatticeInterval rdfs:label "Adds an attribute field to the attribute table of an object layer.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA, ccd:IntervalA ].
+	
+####Existence Vector
+#calculate ratio
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:AddFieldToAttributesTableExistenceRasterRatio.
+tools:CalculateFieldToAttributesTableExistenceRasterRatio rdfs:label "Adds a new field to a vector layer. The name, characteristics and field values, calculated based on a given expression, of the attributes are defined as parameters.";
+	wf:input1 [ a ccd:ExistenceVector, ccd:BooleanA ];
+	wf:output [ a ccd:ObjectRegion, ccd:RatioA ].
+
+#### Fields 
+#field raster, calculate ratio
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldRasterRatio.
+tools:CalculateFieldRasterRatio rdfs:label "Adds a field to the attribute table of an Field Raster layer.";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:output [ a ccd:FieldRaster, ccd:RatioA ].
+	
+#field raster, calculate interval
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldRasterInterval.
+tools:CalculateFieldRasterInterval rdfs:label "Adds a field to the attribute table of an Field Raster layer.";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:output [ a ccd:FieldRaster, ccd:RatioA ]. 
+
+#coverage, calculate ratio
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldCoverageRatio.
+tools:CalculateFieldCoverageRatio rdfs:label "Adds a field to the attribute table of an coverage layer.";
+	wf:input1 [ a ccd:Coverage ];
+	wf:output [ a ccd:Coverage, ccd:RatioA ].
+	
+#coverage, calculate interval
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldCoverageInterval.
+tools:CalculateFieldCoverageInterval rdfs:label "Adds a field to the attribute table of a coverage layer.";
+	wf:input1 [ a ccd:Coverage ];
+	wf:output [ a ccd:Coverage, ccd:RatioA ].
+
+#contour, calculate ratio
+<https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-field.htm> tools:implements tools:CalculateFieldContourRatio.
+tools:CalculateFieldContourRatio rdfs:label "Adds a field to the attribute table of an contour layer.";
+	wf:input1 [ a ccd:Contour, ccd:OrdinalA ];
+	wf:output [ a ccd:Coverage, ccd:RatioA ].
 
 ########### Supertool: Zonal Statistics and Join Tool
 tools:JoinToZonalStatisticsTable tools:implements tools:ZonalStatisticsMajorityBooleanJoin, tools:ZonalStatisticsMajorityNominalJoin, tools:ZonalStatisticsMedianOrdinalJoin, tools:ZonalStatisticsMeanIntervalJoin, tools:ZonalStatisticsMeanIntervalIRAJoin, tools:ZonalStatisticsMeanRatioJoin, tools:ZonalStatisticsSumRatioJoin, tools:ZonalStatisticsMeanRatioIRAJoin, tools:ZonalStatisticsMeanCountJoin, tools:ZonalStatisticsSumCountJoin;  
@@ -655,9 +804,14 @@ tools:EuclideanDistanceObjectVector rdfs:label "Calculates, for each cell, the E
 
 # for Field
 <https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/euclidean-distance.htm> tools:implements tools:EuclideanDistanceExistenceRaster.
-tools:EuclideanDistanceExistenceRaster rdfs:label "Calculates, for each cell, the Euclidean distance to the closest existence raster grid that rapports a positive.";
+tools:EuclideanDistanceExistenceRaster rdfs:label "Calculates, for each cell, the Euclidean distance to the closest existence raster grid that reports a positive.";
     	wf:input1 [ a ccd:NoDataExistenceRaster ];
     	wf:output [ a ccd:FieldRaster, ccd:RatioA, exm:IRA ].
+    	
+<https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/euclidean-distance.htm> tools:implements tools:EuclideanDistanceExistenceVector.
+tools:EuclideanDistanceExistenceVector rdfs:label "Calculates, for each cell, the Euclidean distance to the closest existence vector object that reports a positive.";
+	wf:input1 [ a ccd:ExistenceVector ];
+	wf:output [ a ccd:FieldRaster, ccd:RatioA, exm:IRA ]. 
 
 ########### Feature to Raster
 #### Object Vector to Existence Raster (only kept the object vector to boolean as this method only denotes the existence of polygons, if it also would give a value it would be a field raster). The input can only be boolean, but every input is already boolean for the purpose of this analysis (it exists or it doesn't)
@@ -849,12 +1003,6 @@ tools:LocalMapAlgebraMultiplyRatioCount rdfs:label "Builds and executes a Local 
     	wf:input2 [ a ccd:FieldRaster, ccd:CountA ];
     	wf:output [ a ccd:FieldRaster, ccd:RatioA ].
 
-####Inequalities Ordinal
-<https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm> tools:implements tools:CalculatorInequalitiesNominalOrdinal.
-tools:CalculatorInequalitiesNominalOrdinal rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
-	wf:input1 [ a ccd:FieldRaster, ccd:OrdinalA ];
-	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
-	
 #### Existence Raster Overlay
 <https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm> tools:implements tools:CalculatorNominalOverlay.
 tools:CalculatorNominalOverlay rdfs:label "Builds and executes a local map algebra expression using Python syntax using rasters with a boolean measurement level, in this case it executes a & function.";
@@ -865,10 +1013,22 @@ tools:CalculatorNominalOverlay rdfs:label "Builds and executes a local map algeb
 	wf:input5 [ a ccd:ExistenceRaster, ccd:BooleanA ];
 	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
 	
+####Inequalities Nominal
+<https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm> tools:implements tools:CalculatorInequalitiesNominal.
+tools:CalculatorInequalitiesNominal rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
+	wf:input1 [ a ccd:FieldRaster, ccd:NominalA ];
+	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
+	
+####Inequalities Ordinal
+<https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm> tools:implements tools:CalculatorInequalitiesOrdinal.
+tools:CalculatorInequalitiesOrdinal rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
+	wf:input1 [ a ccd:FieldRaster, ccd:OrdinalA ];
+	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ].
+	
 ####Inequalities Ratio
 <https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm> tools:implements tools:CalculatorInequalitiesRatio.
-tools:CalculatorInequalitiesNominalRatio rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
-	wf:input1 [ a ccd:FieldRaster, ccd:Ratio ];
+tools:CalculatorInequalitiesRatio rdfs:label "Builds and executes a local map algrebra expression using Python syntax using rasters with a ordinal measurement level, in this case it executes an inequality function";
+	wf:input1 [ a ccd:FieldRaster, ccd:RatioA ];
 	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 
 
 ########### Least Cost Path Tool
@@ -891,19 +1051,43 @@ tools:EqualTo rdfs:label "Performs a relational equal-to operation on two inputs
 	wf:output [ a ccd:ExistenceRaster, ccd:BooleanA ]. 	
 
 ############ Clip Tool
-#interval attributes
-<https://pro.arcgis.com/en/pro-app/tool-reference/data-management/clip.htm> tools:implements tools:ClipField2ObjectExtentInterval.
-tools:ClipField2ObjectExtentInterval rdfs:label "Clips some field raster to the extent of an object layer.";
-    wf:input1 [ a ccd:FieldRaster, ccd:IntervalA ];
-    wf:input2 [ a ccd:Lattice, ccd:VectorA ];
-    wf:output [ a ccd:FieldRaster, ccd:IntervalA ]. 
-
-#ordinal attributes 
-<https://pro.arcgis.com/en/pro-app/tool-reference/data-management/clip.htm> tools:implements tools:ClipField2ObjectExtentOrdinal.
-tools:ClipField2ObjectExtentOrdinal rdfs:label "Clips some field raster to the extent of an object layer.";
-    wf:input1 [ a ccd:FieldRaster, ccd:OrdinalA ];
-    wf:input2 [ a ccd:Lattice, ccd:VectorA ];
-    wf:output [ a ccd:FieldRaster, ccd:OrdinalA]. 
+#Clip Vector
+<https://desktop.arcgis.com/en/arcmap/10.3/tools/analysis-toolbox/clip.htm> tools:implements tools:ClipVectorToRegionExtent.
+tools:ClipVectorToRegionExtent rdfs:label "Clips some object vector to the extent of an object region layer.";
+	wf:input1 [ a ccd:ObjectVector ];
+	wf:input2 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:ObjectVector ]. 
+	
+<https://desktop.arcgis.com/en/arcmap/10.3/tools/analysis-toolbox/clip.htm> tools:implements tools:ClipVectorToLatticeExtent.
+tools:ClipVectorToLatticeExtent rdfs:label "Clips some object vector to extent of a lattice layer.";
+	wf:input1 [ a ccd:ObjectVector ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:ObjectVector ]. 
+	
+<https://desktop.arcgis.com/en/arcmap/10.3/tools/analysis-toolbox/clip.htm> tools:implements tools:ClipLatticeToLatticeExtent. 
+tools:ClipLatticeToLatticeExtent rdfs:label "Clips some lattice to the extent of a lattice layer.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:Lattice, ccd:VectorA ].  
+	
+<https://desktop.arcgis.com/en/arcmap/10.3/tools/analysis-toolbox/clip.htm> tools:implements tools:ClipLatticeToObjectRegionExtent. 
+tools:ClipLatticeToObjectRegionExtent rdfs:label "Clips some lattice to the extent of a object region layer.";
+	wf:input1 [ a ccd:Lattice, ccd:VectorA ];
+	wf:input2 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:ObjectRegion ].  
+    
+#Clip Raster by Extent 
+<https://pro.arcgis.com/en/pro-app/tool-reference/data-management/clip.htm> tools:implements tools:ClipRasterToLatticeExtent.
+tools:ClipRasterToLatticeExtent rdfs:label "Clip some field raster to the extent of some lattice layer.";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:input2 [ a ccd:Lattice, ccd:VectorA ];
+	wf:output [ a ccd:FieldRaster ].
+	
+<https://pro.arcgis.com/en/pro-app/tool-reference/data-management/clip.htm> tools:implements tools:ClipRasterToRegionExtent.
+tools:ClipRasterToRegionExtent rdfs:label "Clip some field raster to the extent of some region layer.";
+	wf:input1 [ a ccd:FieldRaster ];
+	wf:input2 [ a ccd:ObjectRegion ];
+	wf:output [ a ccd:FieldRaster ]. 
 
 ############ Region Group
 #for field raster input

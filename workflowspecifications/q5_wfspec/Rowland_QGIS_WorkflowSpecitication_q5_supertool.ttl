@@ -6,6 +6,7 @@
 @prefix tools: <http://geographicknowledge.de/vocab/GISTools.rdf#>.
 @prefix arcpro: <https://pro.arcgis.com/en/pro-app/tool-reference/>.
 @prefix pdok: <https://www.pdok.nl/introductie/-/article/>.
+@prefix qtools: <http://geographicknowledge.de/vocab/QGISTools.rdf#>. #this needs to be checked with Simon. 
 
 # @author: Lexi Rowland
 
@@ -20,15 +21,11 @@ _:wf5 a wf:Workflow;
 _:wf5_1 wf:applicationOf <https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/gdal/rasterextraction.html>;
 		wf:input1 _:temperature_amsterdam; #fieldraster, intervalA
 		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas  
-		wf:output _:UHIams_tif. #fieldraster, intervalA
+		wf:output _:rastertemperature_clip. #fieldraster, intervalA
 
-_:wf5_2 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/rasteranalysis.html#zonal-statistics>; 
-		wf:input1 _:UHIams_tif;
-		wf:output _:UHIzonalstatistics_shp.
-		
-_:wf5_3 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectorgeneral.html#join-attributes-by-field>;
-		wf:input1 _:UHIzonalstatistics_shp;
-		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>;
-		wf:output _:meanUHIPC4_shp. #lattice, vector, intervalA
+_:wf5_2 wf:applicationOf qtools:ZonalStatisticsMeanIntervalJoin; #supertool
+	wf:input1 _:rastertemperature_clip;
+	wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas  
+	wf:output _:meantemperature_shp. #lattice, vectorA, intervalA
 		
 

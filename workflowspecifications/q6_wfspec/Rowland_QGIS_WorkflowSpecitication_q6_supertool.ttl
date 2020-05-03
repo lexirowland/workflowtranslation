@@ -6,6 +6,7 @@
 @prefix tools: <http://geographicknowledge.de/vocab/GISTools.rdf#>.
 @prefix arcpro: <https://pro.arcgis.com/en/pro-app/tool-reference/>.
 @prefix pdok: <https://www.pdok.nl/introductie/-/article/>.
+@prefix qtools: <http://geographicknowledge.de/vocab/QGISTools.rdf#>. #this needs to be checked with Simon. 
 
 # @author: Lexi Rowland
 
@@ -56,15 +57,11 @@ _:wf6_8 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working
 		wf:input1 _:sportclu; #fieldraster, nominalA
 		wf:output _:sportclub_nd. #fieldraster, nominalA
 		
-_:wf6_9 wf:applicationOf <https://grass.osgeo.org/grass78/manuals/r.to.vect.html>;
-		wf:input1 _:sportclu_nd; #fieldraster, nominalA
-		wf:output _:sportclu_nd_vectorise. #objectvector, nominalA
-		
-_:wf6_10 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectortable.html#add-field-to-attributes-table>;
-		wf:input1 _:sportclu_nd_vectorise;
+_:wf6_9 wf:applicationOf qtools:PolygoniseFieldRasterToObjectRegion; #supertool
+		wf:input _:sportclu_nd; #fieldraster, nominalA
 		wf:output _:sportarea. #objectvector, ratioA
 		
-_:wf6_13 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>; #%sportclu_nd%>=20000
+_:wf6_10 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>; #%sportclu_nd%>=20000
 		wf:input1 _:sportclu_nd; #fieldraster, nominalA
 		wf:output _:sports. #existenceraster, booleanA 
 		

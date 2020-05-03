@@ -15,22 +15,22 @@ _:wf4 a wf:Workflow;
 	rdfs:comment "Where in Amsterdam is noise equal to or greater than 70 dB?"@en;	
 	wf:source <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas		
 	wf:source <https://maps.amsterdam.nl/geluid>;	#Amsterdam noise map
-	wf:edge _:wf4_1, _:wf4_2, _:wf4_3,_:wf4_4, _:wf4_5, _:wf4_6.
+	wf:edge _:wf4_1, _:wf4_2, _:wf4_3,_:wf4_4.
 	
 _:wf4_1 wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/gdal/vectorconversion.html#rasterize-vector-to-raster>;
 		wf:input1 <https://maps.amsterdam.nl/geluid>; #contour, ordinalA	
-		wf:output _:noise_raster. #fieldraster, intervalA
+		wf:output _:noise_raster. #fieldraster, ordinalA
 		
-_:wf4_2  wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/qgis/vectoroverlay.html#clip>;
-		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>;
-		wf:input2 _:noise_raster;			
-		wf:output _:noise_amsterdam. #fieldraster, intervalA
+_:wf4_2  wf:applicationOf <https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/gdal/rasterextraction.html>; #clip raster by extent
+		wf:input1 _:noise_raster;
+		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vector, nominalA		
+		wf:output _:noise_amsterdam. #fieldraster, ordinalA
 		
 _:wf4_3  wf:applicationOf <https://docs.qgis.org/3.10/en/docs/user_manual/working_with_raster/raster_analysis.html#raster-calculator>;
-		wf:input1 _:noise_amsterdam;				
-		wf:output _:noisy_amsterdam.
+		wf:input1 _:noise_amsterdam; #fieldraser, ordinalA			
+		wf:output _:noisy_amsterdam. #existenceraster, booleanA
 		
-_:wf4_4  wf:applicationOf <https://grass.osgeo.org/grass78/manuals/r.to.vect.html>;
+_:wf4_4  wf:applicationOf <https://gdal.org/programs/gdal_polygonize.html#gdal-polygonize>;
 		wf:input1 _:noisy_amsterdam;				
-		wf:output _:noisy_amsterdam_shp. #lattice, vectorA, nominalA		
+		wf:output _:noisy_amsterdam_shp. #coverage, ordinalA		
 		
