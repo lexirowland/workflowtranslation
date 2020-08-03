@@ -14,21 +14,22 @@
 _:wf5 a wf:Workflow;
 	rdfs:comment "What is the average temperature within each PC4 area in Amsterdam?"@en;	
 	wf:source <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas	
-	wf:source _:temperature_amsterdam; #temperature fieldraster
+	wf:source _:temperature_amsterdam; #temperature fieldraster interval
 	wf:edge _:wf5_1, _:wf5_2, _:wf5_3.
 	
 _:wf5_1 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/clip.htm>;
-		wf:input1 _:temperature_amsterdam; #fieldraster 
+		wf:input1 _:temperature_amsterdam; #point measures, plain interval
 		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vector, nominalA
-		wf:output _:UHIams_tif. #fieldraster, intervalA
+		wf:output _:UHIams_tif. #point measures, plain intervalA
 
 _:wf5_2 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/spatial-analyst-toolbox/h-how-zonal-statistics-works.htm>; #implements ZonalStatisticsMeanInterval
-		wf:input1 _:UHIams_tif;
-		wf:output _:UHIzonalstatistics_shp.  
+		wf:input1 _:UHIams_tif; #point measures, plain intervalA
+		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>;
+		wf:output _:UHIzonalstatistics_shp.  #lattice, ratioA
 		
 _:wf5_3 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/data-management-toolbox/add-join.htm>;
-		wf:input1 _:UHIzonalstatistics_shp;
+		wf:input1 _:UHIzonalstatistics_shp; #lattice, ratioA
 		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>;
-		wf:output _:meanUHIPC4_shp. #lattice, vectora, intervalA
+		wf:output _:meanUHIPC4_shp. #lattice, ratioA
 		
 

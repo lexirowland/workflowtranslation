@@ -17,14 +17,14 @@ _:wf5 a wf:Workflow;
 	wf:source _:temperature_amsterdam; #temperature fieldraster
 	wf:edge _:wf5_1, _:wf5_2.
 	
-_:wf5_1 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/clip.htm>;
-		wf:input1 _:temperature_amsterdam; #fieldraster 
-		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vector, nominalA
-		wf:output _:rastertemperature_clip. #fieldraster, intervalA
+_:wf5_1 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/clip.htm>; #ClipPointMeasuresToLatticeExtent
+		wf:input1 _:temperature_amsterdam; #fieldQ, pointA, plainintervalA
+		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #objectQ, vectortessellationA, plainnominalA
+		wf:output _:rastertemperature_clip. #fieldQ, rasterA, plainintervalA
 
 _:wf5_2 wf:applicationOf tools:ZonalStatisticsMeanIntervalJoin; #supertool
-	wf:input1 _:rastertemperature_clip; #fieldraster, intervalA
-	wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>;
-	wf:output _:meantemperature_shp. #lattice, vectorA, intervalA
+	wf:input1 _:rastertemperature_clip; #fieldQ, rasterA, intervalA
+	wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #objectQ, vectortessellationA, plainnominalA
+	wf:output _:meantemperature_shp. #objectQ, vectortessellationA, plainintervalA
 		
 

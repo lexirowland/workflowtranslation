@@ -14,19 +14,19 @@
 _:wf3 a wf:Workflow;
 	rdfs:comment "What is the accessibility of parks/green space for each PC4 area in Amsterdam?"@en;	
 	wf:source <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas	
-	wf:source <https://maps.amsterdam.nl/open_geodata/?k=152>; #land use map coverage, nominalA
+	wf:source <https://maps.amsterdam.nl/open_geodata/?k=152>; #land use map 
 	wf:edge _:wf3_1, _:wf3_2, _:wf3_3.
 	
 _:wf3_1 wf:applicationOf tools:SelectFeaturesCoverageToExistenceVector;
-		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=152>; #coverage, nominalA
-		wf:output _:grondgebruik1. #existencevector
+		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=152>; #fieldQ, tessellationA, plainnominalA
+		wf:output _:grondgebruik1. #objectQ, existencevectorA, booleanA
 
 _:wf3_2 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/spatial-analyst-toolbox/euclidean-distance.htm>;
-		wf:input1 _:parks2;
-		wf:output _:eudist. #fieldraster, ratioA
+		wf:input1 _:parks2; #objectQ, existencevectorA, booleanA
+		wf:output _:eudist. #fieldQ, rasterA, ratioA
 		
 _:wf3_3 wf:applicationOf tools:ZonalStatisticsMeanRatioJoin; #supertool
-		wf:input1 _:eudist;
-		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; 
-		wf:output _:accessibility. #lattice, vectorA, ratioA
+		wf:input1 _:eudist;  #fieldQ, rasterA, ratioA
+		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #objectQ, vectortessellationA, plainnominalA
+		wf:output _:accessibility. #objectQ, vectortessellationA, plainratioA
 	

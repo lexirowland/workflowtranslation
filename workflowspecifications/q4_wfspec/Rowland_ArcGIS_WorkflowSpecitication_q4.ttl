@@ -15,22 +15,19 @@ _:wf4 a wf:Workflow;
 	rdfs:comment "Where in Amsterdam is noise pollution equal to or greater than 70dB?"@en;	
 	wf:source <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas	
 	wf:source <https://maps.amsterdam.nl/geluid>;	#Amsterdam noise map
-	wf:edge _:wf4_1, _:wf4_2, _:wf4_3,_:wf4_4. 
+	wf:edge _:wf4_1, _:wf4_2, _:wf4_3. 
 	
-_:wf4_1 wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/conversion/polygon-to-raster.htm>;
-		wf:input1 <https://maps.amsterdam.nl/geluid>; #contour ordinalA	
-		wf:output _:noise_raster. #fieldraster, ordinalA
+_:wf4_1 wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/conversion/polygon-to-raster.htm>; #ContourToFieldRaster
+		wf:input1 <https://maps.amsterdam.nl/geluid>; #fieldQ, tessellationA, plainordinalA	
+		wf:output _:noise_raster. #fieldQ, rasterA, plainordinalA
 		
-_:wf4_2 wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/data-management/clip.htm>; #clip raster tool
-		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vector, nominalA
-		wf:input2 _:noise_raster; #fieldraster, ordinalA		
-		wf:output _:noise_amsterdam. #fieldraster, ordinalA
+_:wf4_2 wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/data-management/clip.htm>; #ClipRasterToLatticeExtentOrdinal
+		wf:input1 <https://maps.amsterdam.nl/open_geodata/?k=192>; #objectQ, vectortessellationA, plainnominalA
+		wf:input2 _:noise_raster; #fieldQ, rasterA, plainordinalA	
+		wf:output _:noise_amsterdam. #fieldQ, rasterA, plainordinalA
 		
-_:wf4_3 wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm>; 
-		wf:input1 _:noise_amsterdam; #fieldraster, ordinalA			
-		wf:output _:noisy_amsterdam. #existenceraster, booleanA
+_:wf4_3 wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm>; #CalculatorInequalitiesNominalOrdinal
+		wf:input1 _:noise_amsterdam; #fieldQ, rasterA, plainordinalA		
+		wf:output _:noisy_amsterdam. #fieldQ, rasterA, booleanA (existence raster)
 		
-_:wf4_4 wf:applicationOf <https://pro.arcgis.com/en/pro-app/tool-reference/conversion/raster-to-polygon.htm>;
-		wf:input1 _:noisy_amsterdam;				
-		wf:output _:noisy_amsterdam_shp. #coverage, booleanA
 		

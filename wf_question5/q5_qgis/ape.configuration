@@ -1,29 +1,40 @@
 {
-  "solutions_path": "./q1_full/sat_solutions.txt",
-  "solution_graphs_folder": "./q1_full/figs",
-  "tool_annotations_path": "./ToolDescription_ct.json",
-  "ontology_path": "./GISTaxonomy.rdf",
-  "constraints_path": "./q1_full/constraints.json",
-  "toolsTaxonomyRoot": "Tool",
-  "dataTaxonomyRoot": "DType",
-  "dataSubTaxonomyRoot": "DType",
+  "solutions_path": "./wf_question5/q5_qgis/sat_solutions.txt",
+  "ontologyPrexifIRI": "http://geographicknowledge.de/vocab/CoreConceptData.rdf#",
+  "solution_graphs_folder": "./wf_question5/q5_qgis/figs",
+  "tool_annotations_path": "./wf_question5/q5_qgis/rowland_qgis_tooldescriptions.json",
+  "ontology_path": "./wf_question5/q5_qgis/GISTaxonomy.rdf",
+  "constraints_path": "./wf_question5/q5_qgis/constraints.json",
+  "toolsTaxonomyRoot": "http://geographicknowledge.de/vocab/GISTools.rdf#Tool",
+  "dataTaxonomyRoot": "Attribute",
+  "dataDimensionsTaxonomyRoots": [
+    "CoreConceptQ",
+    "LayerA",
+	"NominalA"
+  ],
   "shared_memory": "true",
   "solution_min_length": "1",
-  "solution_max_length": "8",
+  "solution_max_length": "10",
   "max_solutions": "20",
   "number_of_execution_scripts": "0",
   "number_of_generated_graphs": "20",
   "inputs": [
     {
-      "DType": "NominalAObjectPoint"
+	"CoreConceptQ": ["FieldQ"], 
+    "LayerA": ["PointA"],
+	"NominalA": ["PlainIntervalA"]      
     },
     {
-      "DType": "LatticeVectorA"
+	"CoreConceptQ": ["ObjectQ"],
+    "LayerA": ["VectorTessellationA"],
+	"NominalA": ["PlainNominalA"]    
     }
   ],
   "outputs": [
     {
-      "DType": "CountALatticeVectorAERA"
+    "CoreConceptQ": ["ObjectQ"], 
+    "LayerA": ["VectorTessellationA"],
+	"NominalA": ["PlainRatioA"] 
     }
   ],
   "debug_mode": "true",

@@ -14,36 +14,36 @@
 _:wf2 a wf:Workflow;
 	rdfs:comment "What is the proportion of elderly people living in each PC4 area in Amsterdam?"@en;	
 	wf:source <https://maps.amsterdam.nl/open_geodata/?k=192>; #postcode areas	
-	wf:source <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/wijk-en-buurtkaart-2010>; #cbs buurt statistics with percentages of elderly people by neighbourhood
+	wf:source <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/wijk-en-buurtkaart-2010>; #cbs buurt statistics
 	wf:edge _:wf2_1, _:wf2_2, _:wf2_3, _:wf2_4, _:wf2_5, _:wf2_6, _:wf2_7.
 	
-_:wf2_1 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/extensions/geostatistical-analyst/using-areal-interpolation-to-predict-to-new-polygons.htm>;
-		wf:input1 <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #lattice, vectorA, ratioA, intensive
-		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vectorA, nominalA
-		wf:output _:clipped. #lattice, vectorA, nominalA
+_:wf2_1 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/extensions/geostatistical-analyst/using-areal-interpolation-to-predict-to-new-polygons.htm>; #applying ArealInterpolationRate
+		wf:input1 <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #objectQ, vectortessellationA, plain ratioA
+		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #objectQ, vectortessellationA, plainnominalA
+		wf:output _:clipped. #objectQ, vectortessellationA, plainratioA
 		
 _:wf2_2 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/add-geometry-attributes.htm>; #adding area
-		wf:input1 _:clipped;
-		wf:output _:clipped_1. #lattice, vector, ratioA 
+		wf:input1 _:clipped; #objectQ, vectortessellationA, plainratioA
+		wf:output _:clipped_1. #objectQ, vectortessellationA, plainratioA
 
 _:wf2_3 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/data-management-toolbox/add-field.htm>;
-		wf:input1 _:clipped_1;
-		wf:output _:clipped_shp. #lattice, vector, ratioA
+		wf:input1 _:clipped_1; #objectQ, vectortessellationA, plainratioA
+		wf:output _:clipped_shp. #objectQ, vectortessellationA, plainratioA
 
 _:wf2_4 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/calculate-field.htm>;
-		wf:input1 _:clipped_shp;
-		wf:output _:clipped_shp2. #lattice, vector, ratioA
+		wf:input1 _:clipped_shp; #objectQ, vectortessellationA, plainratioA
+		wf:output _:clipped_shp2. #objectQ, vectortessellationA, plainratioA
 		
-_:wf2_5 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/data-management-toolbox/dissolve.htm>; #using tools:DissolveSumRatio
-		wf:input1 _:clipped_shp2;
-		wf:output _:diss. #lattice, vector, ratioA
+_:wf2_5 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/data-management-toolbox/dissolve.htm>; 
+		wf:input1 _:clipped_shp2; #objectQ, vectortessellationA, plainratioA
+		wf:output _:diss. #objectQ, vectortessellationA, plainratioA
 		
 _:wf2_6 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/10.3/tools/data-management-toolbox/add-field.htm>;
-		wf:input1 _:diss;
-		wf:output _:diss2. #lattice, vector, ratioA
+		wf:input1 _:diss; #objectQ, vectortessellationA, plainratioA
+		wf:output _:diss2. #objectQ, vectortessellationA, plainratioA 
 
 _:wf2_7 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/calculate-field.htm>;
-		wf:input1 _:diss2;
-		wf:output _:diss3. #lattice, vector, ratioA
+		wf:input1 _:diss2; #objectQ, vectortessellationA, plainratioA
+		wf:output _:diss3. #objectQ, vectortessellationA, plainratioA
 
 

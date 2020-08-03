@@ -18,8 +18,8 @@ _:wf2 a wf:Workflow;
 	wf:edge _:wf2_1. 
 	
 _:wf2_1 wf:applicationOf <https://desktop.arcgis.com/en/arcmap/latest/extensions/geostatistical-analyst/using-areal-interpolation-to-predict-to-new-polygons.htm>;
-		wf:input1 <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #lattice, vectorA, ratioA, intensive
-		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #lattice, vectorA, nominalA
-		wf:output _:clipped. #lattice, vectorA, nominalA
+		wf:input1 <https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/natuur-en-milieu/bestand-bodemgebruik>; #objectQ, vectortessellationA, plainratioA
+		wf:input2 <https://maps.amsterdam.nl/open_geodata/?k=192>; #objectQ, vectortessellationA, plainnominalA
+		wf:output _:clipped. #objectQ, vectortessellationA, plainratioA
 
 
